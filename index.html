@@ -11,7 +11,7 @@
 
  <script type="text/javascript">
 
-    var height = 800,
+    var height = 800;
     var width = 500;
 
     var padding = 50;
@@ -50,11 +50,11 @@
         var dots = total.selectAll('circle')
           .data(data)
           .enter()
-          .append('circle');
+          .append('circle')
           // dots.attr('r', function(d) {return Math.abs(d.TMAX) / 10})
-          .attr('cx', function(d) {return Math.max(0 + padding, Math.random() * width - padding)})
-          .attr('cy', function(d) {return Math.max(0 + padding, Math.random() * height - padding )})
-          .style('stroke', 'red');
+          .attr('cx', function(data) {return Math.max(0 + padding, Math.random() * width - padding)})
+          .attr('cy', function(data) {return Math.max(0 + padding, Math.random() * height - padding )})
+          .style('stroke', 'red')
           .style('fill',function(data){
             if (data.count <= 10) {returnColor = 'green';
           } else if (data.count >10 && data.count < 30) {returnColor = 'orange';
