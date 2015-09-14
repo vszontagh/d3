@@ -7,20 +7,40 @@
   <div class="random"></div>
   <div id="total-cdb" class="total"></div>
 
+
+
+
  <script src="http://d3js.org/d3.v3.min.js" type="text/javascript" charset="utf-8"></script>
 
  <script type="text/javascript">
-    // render x axis
-    var total = d3.select("#total-cdb")
-      .append('svg')
-      .attr('height', height + padding *2)
-      .attr('g')
-      .attr('id', 'total')
-      .attr('')
+ d3.json("data.json", function(data){
 
-    // render y axis
+ 	var svg = d3.select("body")
+ 	.append("svg")
+ 	.attr("width", 500)
+ 	.attr("height", 500);
 
+ 	svg.selectAll("circle")
+ 	.data(data)
+ 	.enter()
+ 	.append("circle")
+ 		.attr("cx", function(d){
+ 			return d.curse.count;
 
+ 		})
+
+ 		.attr("r", 5)
+ 		.style("fill", function(d){
+ 			var returnColor;
+ 			if (d.curse.name === "jason"){
+ 				returnColor = "red";
+ 			}
+ 			else if (d.curse.name === "james"){
+ 				returnColor = "yellow";
+ 			}
+ 			return returnColor;
+ 		})
+})
 
  </script>
 </body>
