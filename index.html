@@ -12,6 +12,11 @@
  <script type="text/javascript">
     // render x axis
     var total = d3.select("#total-cdb")
+      .append('svg')
+      .attr('height', height + padding *2)
+      .attr('g')
+      .attr('id', 'total')
+      .attr('')
 
     // render y axis
 
