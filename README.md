@@ -9,8 +9,8 @@ Include the latest version of the d3 file:
 "http://d3js.org/d3.v3.min.js"
 
 ## Resources
-![D3](http://d3js.org)
-![D3 docs](https://github.com/mbostock/d3/wiki/API-Reference)
+[D3](http://d3js.org)
+[D3 docs](https://github.com/mbostock/d3/wiki/API-Reference)
 
 
 
