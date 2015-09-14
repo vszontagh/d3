@@ -6,7 +6,7 @@ D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then 
 
 ## Usage
 Include the latest version of the d3 file:
-<script src="http://d3js.org/d3.v3.min.js" type="text/javascript" charset="utf-8"></script>
+"http://d3js.org/d3.v3.min.js"
 
 ## Resources
 ![D3](http://d3js.org)
