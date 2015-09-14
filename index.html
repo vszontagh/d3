@@ -11,59 +11,93 @@
 
  <script type="text/javascript">
 
-    var height = 800;
-    var width = 500;
+	d3.json("data.json", function(data){
+	
+ 	var svg = d3.select("body")
+ 	.append("svg")
+ 	.attr("width", 500)
+ 	.attr("height", 500);
 
-    var padding = 50;
+ 	svg.selectAll("circle")
+ 	.data(data)
+ 	.enter()
+ 	.append("circle")
+ 		.attr("cx", function(d){
+ 			return d.curse.count;
+ 		})
+ 		.attr("r", 5)
+ 		.style("fill", function(d){
+ 			var returnColor;
+ 			if (d.curse.name === "jason"){
+ 				returnColor = "red";
+ 			}
+ 			else if (d.curse.name === "james"){
+ 				returnColor = "yellow";
+ 			}
+ 			return returnColor;
+ 		})
+	})
 
-    var total = d3.select("#total-cdb")
-      .append('svg') // parent element
-      .attr('height', height + padding *2)
-      .attr('width', width + padding *2)
-      .attr('g')
-      .attr('id', 'total')
-      .attr('transform',
-            'translate(' +padding +','+ padding +')');
-
-    var yScale = d3.scale.linear()
-      .range([height,0]);
-
-    var xScale = d3.time.scale()
-      .range([0,width]);
-
-    // render x axis
-    var xAxis = d3.svg.axis().scale(xScale)
-      .orient("bottom")
-      .ticks(12);
-
-    // render y axis
-    var yAxis = d3.svg.axis().scale(yScale)
-        .orient("left")
-        .ticks(20);
-
-
-    var json = d3.json("data.json", function(error, data){
-      if (error){
-        throw error;
-      }
-      else{
-        var dots = total.selectAll('circle')
-          .data(data)
-          .enter()
-          .append('circle')
-          // dots.attr('r', function(d) {return Math.abs(d.TMAX) / 10})
-          .attr('cx', function(data) {return Math.max(0 + padding, Math.random() * width - padding)})
-          .attr('cy', function(data) {return Math.max(0 + padding, Math.random() * height - padding )})
-          .style('stroke', 'red')
-          .style('fill',function(data){
-            if (data.count <= 10) {returnColor = 'green';
-          } else if (data.count >10 && data.count < 30) {returnColor = 'orange';
-          } else if (data.count >=30) {returnColor = 'red';}
-          return returnColor;
-          })
-      }
-    })
 
  </script>
+
+// <script type="text/javascript">
+
+//     var height = 800;
+//     var width = 500;
+
+//     var padding = 50;
+
+//     var total = d3.select("#total-cdb")
+//       .append('svg') // parent element
+//       .attr('height', height + padding *2)
+//       .attr('width', width + padding *2)
+//       .attr('g')
+//       .attr('id', 'total-cdb')
+//       .attr('transform',
+//             'translate(' +padding +','+ padding +')');
+
+//     var yScale = d3.scale.linear()
+//       .range([height,0]);
+
+//     var xScale = d3.time.scale()
+//       .range([0,width]);
+
+//     // render x axis
+//     var xAxis = d3.svg.axis().scale(xScale)
+//       .orient("bottom")
+//       .ticks(12);
+
+//     // render y axis
+//     var yAxis = d3.svg.axis().scale(yScale)
+//         .orient("left")
+//         .ticks(20);
+
+
+//     var json = d3.json("data.json", function(error, data){
+//       if (error){
+//         throw error;
+//       }
+//       else{
+//         var dots = total.selectAll('circle')
+//           .data(data)
+//           .enter()
+//           .append('circle')
+//           // dots.attr('r', function(d) {return Math.abs(d.TMAX) / 10})
+//           .attr('cx', function(d) {return Math.max(0 + padding, Math.random() * width - padding)})
+//           .attr('cy', function(d) {return Math.max(0 + padding, Math.random() * height - padding )})
+//           .style('stroke', 'red')
+//           .style('fill',function(data){
+//             if (data.count <= 10) {returnColor = 'green';
+//           } else if (data.count >10 && data.count < 30) {returnColor = 'orange';
+//           } else if (data.count >=30) {returnColor = 'red';}
+//           return returnColor;
+//           })
+//       }
+//     })
+
+ 		
+
+//  </script>
 </body>
 </html>
