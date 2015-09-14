@@ -46,9 +46,22 @@
       if (error){
         throw error;
       }
-      // else{
-
-      // }
+      else{
+        var dots = total.selectAll('circle')
+          .data(data)
+          .enter()
+          .append('circle');
+          // dots.attr('r', function(d) {return Math.abs(d.TMAX) / 10})
+          .attr('cx', function(d) {return Math.max(0 + padding, Math.random() * width - padding)})
+          .attr('cy', function(d) {return Math.max(0 + padding, Math.random() * height - padding )})
+          .style('stroke', 'red');
+          .style('fill',function(data){
+            if (data.count <= 10) {returnColor = 'green';
+          } else if (data.count >10 && data.count < 30) {returnColor = 'orange';
+          } else if (data.count >=30) {returnColor = 'red';}
+          return returnColor;
+          })
+      }
     })
 
  </script>
