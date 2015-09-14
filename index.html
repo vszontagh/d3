@@ -10,17 +10,46 @@
  <script src="http://d3js.org/d3.v3.min.js" type="text/javascript" charset="utf-8"></script>
 
  <script type="text/javascript">
-    // render x axis
+
+    var height = 800,
+    var width = 500;
+
+    var padding = 50;
+
     var total = d3.select("#total-cdb")
-      .append('svg')
+      .append('svg') // parent element
       .attr('height', height + padding *2)
+      .attr('width', width + padding *2)
       .attr('g')
       .attr('id', 'total')
-      .attr('')
+      .attr('transform',
+            'translate(' +padding +','+ padding +')');
+
+    var yScale = d3.scale.linear()
+      .range([height,0]);
+
+    var xScale = d3.time.scale()
+      .range([0,width]);
+
+    // render x axis
+    var xAxis = d3.svg.axis().scale(xScale)
+      .orient("bottom")
+      .ticks(12);
 
     // render y axis
+    var yAxis = d3.svg.axis().scale(yScale)
+        .orient("left")
+        .ticks(20);
 
 
+    var json = d3.json("data.json", function(error, data){
+      if (error){
+        throw error;
+      }
+      // else{
+
+      // }
+    })
 
  </script>
 </body>
