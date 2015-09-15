@@ -2,108 +2,87 @@
 <html lang="en">
 	<meta charset="UTF-8">
   <title>CDB Matrix</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link href="css/hover.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
+
+
 <body>
-  <div class="random"></div>
-  <div id="total-cdb" class="total"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script> 
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+<h1 class="curse">Student Curse Data During WDI </h1>
+<h4 class="curse italic">Number of curse words on a weekly basis.</h4>
 
 
+ <script type="text/javascript" >
+
+var margin = {top: 40, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var padding = 70;
 
 
- <script src="http://d3js.org/d3.v3.min.js" type="text/javascript" charset="utf-8"></script>
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .html(function(d) {
+    return "week" + " " + d.week + " " + d.name + " " + d.count;
+  })
+  .offset([-5, 0])
 
- <script type="text/javascript">
 
-	d3.json("data.json", function(data){
-	
- 	var svg = d3.select("body")
+d3.json("curses.json", function(data){
+
+  var svg = d3.select("body")
  	.append("svg")
- 	.attr("width", 500)
- 	.attr("height", 500);
+ 	.attr('id', 'viz')
+ 	.attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
 
- 	svg.selectAll("circle")
- 	.data(data)
- 	.enter()
- 	.append("circle")
- 		.attr("cx", function(d){
- 			return d.curse.count;
- 		})
- 		.attr("r", 5)
- 		.style("fill", function(d){
- 			var returnColor;
- 			if (d.curse.name === "jason"){
- 				returnColor = "red";
- 			}
- 			else if (d.curse.name === "james"){
- 				returnColor = "yellow";
- 			}
- 			return returnColor;
- 		})
-	})
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  .call(tip);
+ 
 
+  curses = svg.selectAll('circle')
+		.data(data)
+		.enter()
+		.append('circle')
+		.attr('class', 'hvr-float');
 
+		curses.attr('r', function(d, i) {
+          return Math.abs(d.count)/ 3})
+		.attr('cx', function(d) {return Math.max(0 + padding, Math.random() * width - padding)})
 
-
-
- </script>
-
-// <script type="text/javascript">
-
-//     var height = 800;
-//     var width = 500;
-
-//     var padding = 50;
-
-//     var total = d3.select("#total-cdb")
-//       .append('svg') // parent element
-//       .attr('height', height + padding *2)
-//       .attr('width', width + padding *2)
-//       .attr('g')
-//       .attr('id', 'total-cdb')
-//       .attr('transform',
-//             'translate(' +padding +','+ padding +')');
-
-//     var yScale = d3.scale.linear()
-//       .range([height,0]);
-
-//     var xScale = d3.time.scale()
-//       .range([0,width]);
-
-//     // render x axis
-//     var xAxis = d3.svg.axis().scale(xScale)
-//       .orient("bottom")
-//       .ticks(12);
-
-//     // render y axis
-//     var yAxis = d3.svg.axis().scale(yScale)
-//         .orient("left")
-//         .ticks(20);
+		.attr('cy', function(d) {return Math.max(0 + padding, Math.random() * height - padding)})
+		.style('stroke', 'black')
+		.style('stroke-width', 3)
+		.style('opacity', 0.6)
+		.style('fill', function(d){
+			if(d.name === "reyes"){
+				return "#07BC22"
+			}
+			else if(d.name === "jason"){
+				return "red"
+			}
+			else if(d.name === "james"){
+				return "yellow"
+			}
+			else if(d.name === "viktoria"){
+				return "purple"
+			}
+		})
+		.on('mouseover', tip.show)
+    .on('mouseout', tip.hide)
+})
 
 
-//     var json = d3.json("data.json", function(error, data){
-//       if (error){
-//         throw error;
-//       }
-//       else{
-//         var dots = total.selectAll('circle')
-//           .data(data)
-//           .enter()
-//           .append('circle')
-//           // dots.attr('r', function(d) {return Math.abs(d.TMAX) / 10})
-//           .attr('cx', function(d) {return Math.max(0 + padding, Math.random() * width - padding)})
-//           .attr('cy', function(d) {return Math.max(0 + padding, Math.random() * height - padding )})
-//           .style('stroke', 'red')
-//           .style('fill',function(data){
-//             if (data.count <= 10) {returnColor = 'green';
-//           } else if (data.count >10 && data.count < 30) {returnColor = 'orange';
-//           } else if (data.count >=30) {returnColor = 'red';}
-//           return returnColor;
-//           })
-//       }
-//     })
 
- 		
-
-//  </script>
+	</script>
 </body>
 </html>
